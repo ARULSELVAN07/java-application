@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on:ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Source
@@ -36,3 +36,20 @@ jobs:
       - name: Push Docker Image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/java-app:${{ github.run_number }}
+
+      - name: Update K8S Repository
+        run: |
+          git clone https://x-access-token:${{ secrets.K8S_REPO_TOKEN }}@github.com/ARULSELVAN07/k8s.git
+
+          cd k8s
+
+          sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/java-app:${{ github.run_number }}|g" 05-java-deployment.yaml
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add 05-java-deployment.yaml
+
+          git commit -m "Update image tag to ${{ github.run_number }}" || echo "No changes"
+
+          git push
