@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-demo-app
+  namespace: java-demo
+  labels:
+    app: java-demo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-demo-app
+  template:
+    metadata:
+      labels:
+        app: java-demo-app
+    spec:
+      containers:
+      - name: java-demo
+        image: spring-boot-crud-postgres-adminer:v0.0.2
+        ports:
+        - containerPort: 8080 If there is there are any errors, find the test doesn't rules in I don't want the tour on this you have to speed in the dosh to the next phase we create a separate repository which is called maybe Java application the next policy what happened to take the tag of this particular and then you place the tag over there is the second step. The second one what happened whenever you change here, you should automatically change that other tag, and the same tag you need to go down the same detail dress. The third one is the third step it is local runners I don't want private reports public is also fine for I know that it is quite difficult when I keep asking you to the password realize that you learned just by doing I explained very less actually you did it most part so look at the encouragement is running very fast with a different local runners
+        env:
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: SPRING_DATASOURCE_URL
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: SPRING_DATASOURCE_USERNAME
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
