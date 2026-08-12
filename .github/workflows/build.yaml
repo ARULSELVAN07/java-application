@@ -1,9 +1,10 @@
 name: Build-Test-Docker
 
+
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -52,4 +53,3 @@ jobs:
           git commit -m "Update image tag to ${{ github.run_number }}" || echo "No changes"
 
           git push origin main
-          
