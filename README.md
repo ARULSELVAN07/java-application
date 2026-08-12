@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Spring Boot CRUD with PostgreSQL and Adminer
 
 A layered Product CRUD REST API built for Java 21 with:
@@ -243,3 +244,6 @@ For a production system:
 
 
 docker build . -t jpalaparthi/bmw-k8s-java-demo:v0.0.1
+=======
+# java-application
+>>>>>>> 4a53d6d3fcbd02045d490311a2fae3a27b3467ad
